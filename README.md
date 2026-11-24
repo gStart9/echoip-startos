@@ -9,7 +9,7 @@
 > upstream documentation is accurate and fully applicable — see the
 > Documentation section of `instructions.md` for links.
 
-[echoip](https://github.com/mpolden/echoip) answers each request with the public IP address that the request came from, so StartOS servers can learn their gateways' public addresses from a server that their owner runs. Location data is optional, and the **Location Data** action chooses its source.
+[echoip](https://github.com/mpolden/echoip) answers each request with the public IP address that the request came from, so StartOS servers can learn their gateways' public addresses from a server that their owner runs. The package shows location data from DB-IP Lite by default, and the **Location Data** action chooses another source or turns location data off.
 
 The package builds echoip from [gStart9/echoip](https://github.com/gStart9/echoip), a fork of upstream that adds the following:
 
@@ -67,7 +67,7 @@ Changing the source deletes everything in `main`, because two sources can write 
 
 | Key                                     | Meaning                                                                       |
 | --------------------------------------- | ----------------------------------------------------------------------------- |
-| `source`                                | `none` (the default), `ipfire`, `dbip`, `maxmind`, `ipinfo` or `ip2location`  |
+| `source`                                | `none`, `ipfire`, `dbip` (the default), `maxmind`, `ipinfo` or `ip2location`  |
 | `maxmindAccountId`, `maxmindLicenseKey` | The MaxMind credentials                                                       |
 | `ipinfoToken`                           | The IPinfo token                                                              |
 | `ip2locationToken`                      | The IP2Location token                                                         |
@@ -93,20 +93,20 @@ While a source is chosen, `geoupdate` downloads from that source's server: `loca
 
 ## Installation and First-Run Flow
 
-Nothing differs from upstream. The service starts serving as soon as it is installed and started, with no setup and no credentials.
+The service starts serving as soon as it is installed and started, with no setup and no credentials. A new install uses DB-IP Lite, so `geoupdate` downloads DB-IP's databases at first start, and the page shows location data about a minute after the download finishes.
 
 ## Actions
 
 **Location Data** chooses the database that echoip shows locations and network owners from, and asks for credentials only for a source that needs them. The action can run whether the service is running or stopped.
 
-| Source             | Account                    | Shows                                        |
-| ------------------ | -------------------------- | -------------------------------------------- |
-| None (the default) | none                       | the IP address only                          |
-| IPFire Location    | none                       | country and network owner                    |
-| DB-IP Lite         | none                       | country, city, coordinates and network owner |
-| MaxMind GeoLite2   | account ID and license key | country, city, coordinates and network owner |
-| IPinfo Lite        | token                      | country and network owner                    |
-| IP2Location LITE   | token                      | country, region, city and coordinates        |
+| Source                   | Account                    | Shows                                        |
+| ------------------------ | -------------------------- | -------------------------------------------- |
+| None                     | none                       | the IP address only                          |
+| IPFire Location          | none                       | country and network owner                    |
+| DB-IP Lite (the default) | none                       | country, city, coordinates and network owner |
+| MaxMind GeoLite2         | account ID and license key | country, city, coordinates and network owner |
+| IPinfo Lite              | token                      | country and network owner                    |
+| IP2Location LITE         | token                      | country, region, city and coordinates        |
 
 The action's **Hide the map** toggle, on by default, passes `-n`.
 
@@ -126,7 +126,7 @@ The package backs up the `startos` volume, which holds the settings. The databas
 
 ## Limitations and Differences
 
-1. With no source chosen, the country, city and ASN fields and endpoints return nothing.
+1. With the source set to None, the country, city and ASN fields and endpoints return nothing.
 2. Custom-IP lookups are disabled. echoip ignores the `?ip=` parameter and always reports the caller's own address.
 3. The port test (`/port/<n>`) is disabled. With the port test enabled, any visitor could make the server open connections to ports on the visitor's address.
 4. Reverse hostname lookups are disabled, so echoip sends no DNS query for its callers.

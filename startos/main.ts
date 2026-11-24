@@ -15,7 +15,7 @@ export const main = sdk.setupMain(async ({ effects }) => {
       noMap: s.noMap,
     }))
     .const(effects)
-  const source = settings?.source ?? 'none'
+  const source = settings?.source ?? 'dbip'
   const download = source === 'none' ? null : downloads[source]
 
   const image = (name: string, readonly: boolean) =>

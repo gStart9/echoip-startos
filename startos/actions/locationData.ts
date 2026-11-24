@@ -20,7 +20,7 @@ const inputSpec = InputSpec.of({
     description: i18n(
       'The database that echoip looks up locations and network owners in. echoip downloads the database and keeps checking for new releases. Every source still shows the IP address.',
     ),
-    default: 'none',
+    default: 'dbip',
     variants: Variants.of({
       none: { name: i18n('None'), spec: InputSpec.of({}) },
       ipfire: {

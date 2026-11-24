@@ -24,7 +24,7 @@ echoip is only useful to another server when that server can reach echoip from t
 
 ## Location data
 
-Location data is optional, and echoip answers with the IP address whether or not a source is chosen. To show locations, run the **Location Data** action and choose a source:
+echoip shows location data from **DB-IP Lite** by default, which needs no account and includes cities. echoip answers with the IP address whether or not a source is chosen. To use another source, or to turn location data off, run the **Location Data** action:
 
 - **IPFire Location** and **DB-IP Lite** need no account.
 - **MaxMind GeoLite2**, **IPinfo Lite** and **IP2Location LITE** need a free account with that provider. The action asks for the account's credentials.

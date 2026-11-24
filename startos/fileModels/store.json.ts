@@ -3,7 +3,7 @@ import { sdk } from '../sdk'
 import { sourceIds } from '../utils'
 
 const shape = z.looseObject({
-  source: z.enum(sourceIds).catch('none'),
+  source: z.enum(sourceIds).catch('dbip'),
   maxmindAccountId: z.string().optional().catch(undefined),
   maxmindLicenseKey: z.string().optional().catch(undefined),
   ipinfoToken: z.string().optional().catch(undefined),
